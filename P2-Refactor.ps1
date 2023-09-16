@@ -11,9 +11,17 @@ Link: https://github.com/FriedrichWeinmann/Refactor
 + Extensible Framework
 #>
 
-$resources = 'C:\code\GitHub\P2023-PSSat-DeprecatingAzureADMSOnline\resources'
+$rootPath = 'C:\code\GitHub\P2023-PSSat-DeprecatingAzureADMSOnline'
+$resources = "$rootPath\resources"
 code "$resources\refactor_example.transform.psd1"
 code "$resources\refactor_script.ps1"
 
 Import-ReTokenTransformationSet -Path "$resources\refactor_example.transform.psd1"
-Convert-ReScriptFile -Path "$resources\refactor_script.ps1" -Backup
+Convert-ReScriptFile -Path "$resources\refactor_script.ps1" -OutPath "$rootPath\new"
+
+
+#----------------------------------------------------------------------------# 
+#                              Breaking Change                               # 
+#----------------------------------------------------------------------------# 
+
+code "$resources\beer.breakingchange.psd1"
