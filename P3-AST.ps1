@@ -15,3 +15,10 @@ Search-ReAst -Ast $result.Ast -Filter {
 	$args[0] -is [System.Management.Automation.Language.VariableExpressionAst] -and
 	$args[0].VariablePath.UserPath -eq 'param'
 }
+
+#-> Einfaches Ersetzen
+$loops = Read-ReAstComponent -LiteralPath "$resources\Get-DCStatistics.ps1" -Select ForEachStatementAst
+$loops
+$loops | fl *
+$loops.NewText = '"Whatever"'
+$loops | Write-ReAstComponent -Backup
