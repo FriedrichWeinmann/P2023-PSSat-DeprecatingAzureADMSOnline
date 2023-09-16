@@ -71,6 +71,8 @@ Install-Module PowerShellForGitHub.Content
 $files = Get-GithubRepositoryFile -Organization nordicinfrastructureconference -Repository 2017 -Name *.ps1, *.psm1
 $files | Read-AzScriptFile
 
+
+
 # Any other source:
 $datum = [PSCustomObject]@{
 	Name    = "MyCode.ps1"
