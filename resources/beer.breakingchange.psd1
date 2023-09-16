@@ -13,7 +13,7 @@
 		'3.0.0' = @{
 			'Resolve-BeerPreference' = @{
 				Parameters = @{
-					Person = 'Was renamed to "-Identity'
+					Person = 'Was renamed from to "Identity"'
 				}
 			}
 			'Get-Beer' = @{

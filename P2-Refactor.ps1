@@ -25,3 +25,13 @@ Convert-ReScriptFile -Path "$resources\refactor_script.ps1" -OutPath "$rootPath\
 #----------------------------------------------------------------------------# 
 
 code "$resources\beer.breakingchange.psd1"
+Import-ReBreakingChange -Path "$resources\beer.breakingchange.psd1"
+
+$param = @{
+	Module = 'BeerManager'
+	FromVersion = '1.0.0'
+	ToVersion = '3.0.0'
+}
+Get-ChildItem -Path "$resources\BeerStuff" | Search-ReBreakingChange @param
+
+code "$resources\beer.transform.psd1"
