@@ -24,14 +24,25 @@ Convert-ReScriptFile -Path "$resources\refactor_script.ps1" -OutPath "$rootPath\
 #                              Breaking Change                               # 
 #----------------------------------------------------------------------------# 
 
+code "$resources\BeerStuff\party.ps1"
+code "$resources\BeerStuff\work.ps1"
+
 code "$resources\beer.breakingchange.psd1"
 Import-ReBreakingChange -Path "$resources\beer.breakingchange.psd1"
 
 $param = @{
 	Module = 'BeerManager'
 	FromVersion = '1.0.0'
-	ToVersion = '3.0.0'
+	ToVersion = '2.0.0'
 }
 Get-ChildItem -Path "$resources\BeerStuff" | Search-ReBreakingChange @param
 
+#-> Let's fix that
 code "$resources\beer.transform.psd1"
+
+Clear-ReTokenTransformationSet
+Import-ReTokenTransformationSet -Path "$resources\beer.transform.psd1"
+Get-ChildItem -Path "$resources\BeerStuff" | Convert-ReScriptFile -Backup
+
+# Und weiter
+code "$rootPath\P3-AST.ps1"
