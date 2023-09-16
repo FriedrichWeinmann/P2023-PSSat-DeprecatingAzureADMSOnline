@@ -1,9 +1,9 @@
 ﻿# Failsafe
 return
 
- #----------------------------------------------------------------------------# 
- #                                   Links                                    # 
- #----------------------------------------------------------------------------# 
+#----------------------------------------------------------------------------# 
+#                                   Links                                    # 
+#----------------------------------------------------------------------------# 
 
 <#
 Announcement:
@@ -24,16 +24,16 @@ https://docs.microsoft.com/en-us/powershell/microsoftgraph/find-mg-graph-command
 #>
 
 
- #----------------------------------------------------------------------------# 
- #                                   Tools                                    # 
- #----------------------------------------------------------------------------# 
+#----------------------------------------------------------------------------# 
+#                                   Tools                                    # 
+#----------------------------------------------------------------------------# 
 
 # PSAzureMigrationAdvisor
 #-> Github:  https://github.com/FriedrichWeinmann/PSAzureMigrationAdvisor
 #-> Gallery: https://www.powershellgallery.com/packages/PSAzureMigrationAdvisor
 Install-Module PSAzureMigrationAdvisor
 
-$resources = 'C:\code\Workshops\POSH_Workshop_2023-02-02_Custom\resources'
+$resources = 'C:\code\GitHub\P2023-PSSat-DeprecatingAzureADMSOnline\resources'
 code "$resources\azuread.sample.ps1"
 
 Get-Item "$resources\azuread.sample.ps1" | Read-AzScriptFile
@@ -43,7 +43,7 @@ Get-Item "$resources\azuread.sample.ps1" | Convert-AzScriptFile
 
 <#
 Where does the data come from?
-https://github.com/FriedrichWeinmann/PSAzureMigrationAdvisor/tree/master/data
+https://github.com/microsoft/AzureAD-to-MSGraph/tree/main/data
 #>
 
 #region Next Level
@@ -54,17 +54,26 @@ Install-Module AzureDevOps.Services.OpenApi
 
 $cred = Get-Secret -Name DevOpsPAT
 Connect-AdsService -Credential $cred
-Get-AdsRepositoryFile -Organization fred0251 -IncludeContent -Name *.ps1,*.psm1 | Read-AzScriptFile
-Get-AdsRepositoryFile -Organization fred0251 -IncludeContent -Name *.ps1,*.psm1 | Read-AzScriptFile | Export-Excel .\report2.xlsx
+Get-AdsRepositoryFile -Organization fred0251 -IncludeContent -Name *.ps1, *.psm1 | Read-AzScriptFile
+Get-AdsRepositoryFile -Organization fred0251 -IncludeContent -Name *.ps1, *.psm1 | Read-AzScriptFile | Export-Excel .\report2.xlsx
 Invoke-Item .\report2.xlsx
-Get-AdsRepositoryFile -Organization fred0251 -IncludeContent -Name *.ps1,*.psm1 | Read-AzScriptFile -ExpandDevOps | Export-Excel .\report2.xlsx
+Get-AdsRepositoryFile -Organization fred0251 -IncludeContent -Name *.ps1, *.psm1 | Read-AzScriptFile -ExpandDevOps | Export-Excel .\report2.xlsx
 Invoke-Item .\report2.xlsx
-Get-AdsRepositoryFile -Organization fred0251 -IncludeContent -Name *.ps1,*.psm1 | Read-AzScriptFile -ExpandDevOps | Export-AzScriptReport -Path .\report3.csv -Delimiter ";"
+Get-AdsRepositoryFile -Organization fred0251 -IncludeContent -Name *.ps1, *.psm1 | Read-AzScriptFile -ExpandDevOps | Export-AzScriptReport -Path .\report3.csv -Delimiter ";"
 Invoke-Item .\report3.csv
+
+# Github
+# Module: PowerShellForGitHub.Content
+#-> Github: https://github.com/FriedrichWeinmann/PowerShellForGitHub.Content
+#-> Gallery: https://www.powershellgallery.com/packages/PowerShellForGitHub.Content/1.0.0
+Install-Module PowerShellForGitHub.Content
+
+$files = Get-GithubRepositoryFile -Organization nordicinfrastructureconference -Repository 2017 -Name *.ps1, *.psm1
+$files | Read-AzScriptFile
 
 # Any other source:
 $datum = [PSCustomObject]@{
-	Name = "MyCode.ps1"
+	Name    = "MyCode.ps1"
 	Content = @'
 Get-AzureADApplication | Remove-AzureADApplication
 '@
@@ -73,18 +82,21 @@ $datum | Read-AzScriptFile
 #endregion Next Level
 
 
- #----------------------------------------------------------------------------# 
- #                                  Refactor                                  # 
- #----------------------------------------------------------------------------# 
+#----------------------------------------------------------------------------#
+#                             Making Graph Work                              #
+#----------------------------------------------------------------------------#
 
 <#
-Link: https://github.com/FriedrichWeinmann/Refactor
-
-+ Code Analysis
-+ Breaking Change Scan
-+ Search and Replace / Refactoring using AST, rather than plain string replacements
-+ Extensible Framework
+Customize results & Enhance Data:
+https://github.com/microsoft/AzureAD-to-MSGraph/blob/main/data
 #>
+
+# Graph X-Ray
+
+# Links
+# https://linktr.ee/graphpowershell
+
+
 
 <#
 All the Links in one spot:
@@ -109,3 +121,5 @@ Refactor
 Central Mapping Repository
 -> Github:  https://github.com/microsoft/AzureAD-to-MSGraph
 #>
+
+code 'C:\code\GitHub\P2023-PSSat-DeprecatingAzureADMSOnline\P2-Refactor.ps1'
