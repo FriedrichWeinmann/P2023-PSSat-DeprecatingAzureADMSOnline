@@ -57,9 +57,10 @@ Connect-AdsService -Credential $cred
 Get-AdsRepositoryFile -Organization fred0251 -IncludeContent -Name *.ps1, *.psm1 | Read-AzScriptFile
 Get-AdsRepositoryFile -Organization fred0251 -IncludeContent -Name *.ps1, *.psm1 | Read-AzScriptFile | Export-Excel .\report2.xlsx
 Invoke-Item .\report2.xlsx
-Get-AdsRepositoryFile -Organization fred0251 -IncludeContent -Name *.ps1, *.psm1 | Read-AzScriptFile -ExpandDevOps | Export-Excel .\report2.xlsx
+$results = Get-AdsRepositoryFile -Organization fred0251 -IncludeContent -Name *.ps1, *.psm1
+$results | Read-AzScriptFile -ExpandDevOps | Export-Excel .\report2.xlsx
 Invoke-Item .\report2.xlsx
-Get-AdsRepositoryFile -Organization fred0251 -IncludeContent -Name *.ps1, *.psm1 | Read-AzScriptFile -ExpandDevOps | Export-AzScriptReport -Path .\report3.csv -Delimiter ";"
+$results | Read-AzScriptFile -ExpandDevOps | Export-AzScriptReport -Path .\report3.csv -Delimiter ";"
 Invoke-Item .\report3.csv
 
 # Github
